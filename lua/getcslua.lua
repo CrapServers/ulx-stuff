@@ -6,7 +6,7 @@ if SERVER then
 	util.AddNetworkString("ulx_getcsluavarsv")
 end
 net.Receive("ulx_getcsluavarsv", function()
-	target = CSLuaRecivePlayer[player]
+	local target = CSLuaRecivePlayer[player]
 	local convar = net.ReadBool()
 	ulx.fancyLogAdmin(true,"#T's CSLua Convar is #s",  target,tostring(convar)) -- i have no idea why but calling true at the start makes this work
 

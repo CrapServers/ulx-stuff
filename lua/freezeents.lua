@@ -3,7 +3,7 @@ function ulx.freezeents(calling_ply)
 	local entities = ents.FindByClass("prop_*")
 	for k, v in pairs(entities) do
 				--if v:IsPlayer() then continue end
-				entPhysObj = v:GetPhysicsObject()
+				local entPhysObj = v:GetPhysicsObject()
 				if entPhysObj:IsValid() and v:IsInWorld()  then
 					entPhysObj:EnableMotion(false)
 				end
