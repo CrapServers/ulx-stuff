@@ -13,6 +13,6 @@ function ulx.freezeents(calling_ply)
 end
 
 local freezeents = ulx.command(CATEGORY_NAME, "ulx freezeents", ulx.freezeents, "!freezeents")
-freezeents:addParam{type=ULib.cmds.BoolArg, invisible=true}
+freezeents:addParam{type = ULib.cmds.BoolArg, invisible = true}
 freezeents:defaultAccess(ULib.ACCESS_ADMIN)
 freezeents:help("freeze all entities")
