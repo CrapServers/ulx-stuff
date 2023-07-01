@@ -9,4 +9,4 @@ end
 local trick = ulx.command(CATEGORY_NAME, "ulx trick", ulx.trick, "!trick")
 trick:addParam{type = ULib.cmds.PlayersArg}
 trick:defaultAccess(ULib.ACCESS_ADMIN)
-trick:help("make a player think they have friends lol")
+trick:help("make a player think they have friends lol") 
