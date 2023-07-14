@@ -2,6 +2,7 @@ local CATEGORY_NAME = "noooooo's stuff"
 
 
 function ulx.dissolve( calling_ply, target_plys )
+	local died = {}
 	for k, v in ipairs( target_plys ) do
 		local dissolveinfo = DamageInfo()
 			dissolveinfo:SetDamage(v:Health())
@@ -11,13 +12,14 @@ function ulx.dissolve( calling_ply, target_plys )
 			ULib.tsayError(calling_ply , "Couldnt dissolve players(s) please try again later")
 		else
 			if v.ULXHasGod then
-			v:GodDisable()
-			v.ULXHasGod = nil
-		end
+				v:GodDisable()
+				v.ULXHasGod = nil
+			end
 			v:TakeDamageInfo(dissolveinfo)
-			ulx.fancyLogAdmin(calling_ply , "#A dissolved #T" , target_plys )
+			table.insert(died, v)
 		end
 	end
+	ulx.fancyLogAdmin(calling_ply , "#A dissolved #T" , died )
 end
 
 local dissolve = ulx.command(CATEGORY_NAME, "ulx dissolve" , ulx.dissolve , "!dissolve" , true)
