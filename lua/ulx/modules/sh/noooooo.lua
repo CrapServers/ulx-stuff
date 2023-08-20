@@ -75,4 +75,37 @@ trick:addParam{type = ULib.cmds.PlayersArg}
 trick:defaultAccess(ULib.ACCESS_ADMIN)
 trick:help("make a player think they have friends lol")
 
+-- damnit prop protection wont let me touch it... nah who needs it anyway.
+local sudo_plys = {}
+
+local function cantouch(ply) -- so we can add hooks without spamming new functions
+	return sudo_plys[ply:SteamID()] ~= nil and true or nil -- return nil so that hooks after this will run
+end
+-- this is just nadmods hook overides (make an issue if another prop protect needs hooks here)
+hook.Add("CanTool", "!!sudobypass", cantouch) -- hooks are ran by name lmao
+hook.Add("PhysgunPickup", "!!sudobypass", cantouch)
+hook.Add("CanProperty", "!!sudobypass", cantouch)
+hook.Add("CanEditVariable", "!!sudobypass", cantouch)
+hook.Add("GravGunPunt", "!!sudobypass", cantouch)
+hook.Add("GravGunPickupAllowed", "!!sudobypass", cantouch)
+hook.Add("PlayerUse", "!!sudobypass", cantouch)
+
+function ulx.sudo(calling_ply, unsudo)
+	if not unsudo then
+		sudo_plys[calling_ply:SteamID()] = true
+		ulx.fancyLogAdmin(calling_ply, "#A entered sudo mode.")
+	else
+		sudo_plys[calling_ply:SteamID()] = nil
+		ulx.fancyLogAdmin(calling_ply, "#A left sudo mode.")
+	end
+end
+
+local sudo = ulx.command(CATEGORY_NAME, "ulx sudo", ulx.sudo, "!sudo")
+sudo:addParam{ type = ULib.cmds.BoolArg, invisible = true }
+sudo:defaultAccess(ULib.ACCESS_SUPERADMIN)
+sudo:help("Bypass prop protection!")
+sudo:setOpposite("ulx unsudo", {_, true}, "!unsudo")
+
+
+
 
